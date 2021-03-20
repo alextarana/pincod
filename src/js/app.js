@@ -3,13 +3,14 @@ App = {
   contracts: {},
 
   init: function() {
+    $('#TTBalance').text("0");
     return App.initWeb3();
   },
 
   initWeb3: function() {
     
     // set the provider you want from Web3.providers
-    App.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+    App.web3Provider = new Web3.providers.HttpProvider('https://sandbox.truffleteams.com/4825805b-e2ee-4604-a014-5727024f68d6');
     web3 = new Web3(App.web3Provider);
     
     console.log(App.web3Provider.isConnect);
@@ -34,7 +35,7 @@ App = {
   },
 
   bindEvents: function() {
-    $(document).on('click', '#transferButton', App.handleTransfer);
+    $(document).on('click', '#transferButton', App.getBalances);
   },
 
   handleTransfer: function(event) {
@@ -71,28 +72,20 @@ App = {
     console.log('Getting balances...');
 
     var tokenInstance;
+    var toAddress = $('#TTTransferAddress').val();
 
-    web3.eth.getAccounts().then(function(error, accounts) {
-      if (error) {
-        console.log(error);
-      }
+    App.contracts.Pincod.deployed().then(function(instance) {
+      tokenInstance = instance;
 
-      var account = accounts[0];
+      return tokenInstance.balanceOf(toAddress);
+    }).then(function(result) {
+      balance = result.c[0];
 
-      console.log(accounts);
-
-      App.contracts.Pincod.deployed().then(function(instance) {
-        tokenInstance = instance;
-
-        return tokenInstance.balanceOf(account);
-      }).then(function(result) {
-        balance = result.c[0];
-
-        $('#TTBalance').text(balance);
-      }).catch(function(err) {
-        console.log(err.message);
-      });
+      $('#TTBalance').text(balance);
+    }).catch(function(err) {
+      console.log(err.message);
     });
+    
   }
 
 };

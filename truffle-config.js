@@ -42,11 +42,11 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    development: {
-      host: "https://sandbox.truffleteams.com/4825805b-e2ee-4604-a014-5727024f68d6",     // Localhost (default: none)
+    //development: {
+    //  host: "https://sandbox.truffleteams.com/4825805b-e2ee-4604-a014-5727024f68d6",     // Localhost (default: none)
       //port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
-    },
+    //  network_id: "*",       // Any network (default: none)
+    //},
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -72,6 +72,11 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    teams: {
+      url:
+        "https://sandbox.truffleteams.com/4825805b-e2ee-4604-a014-5727024f68d6",
+      network_id: "*",
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
