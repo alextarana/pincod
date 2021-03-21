@@ -27,31 +27,85 @@
         </div>
       </div>
 
-      <div id="petsRow" class="row">
-        <div class="col-sm-6 col-sm-push-3 col-md-4 col-md-push-4">
+      <div id="totalSupplyRow" class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Total supply of Pincod network</h3>
+            </div>
+            <div class="panel-body">
+              <h4 id="total-supply" class="text-center"></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="walletRow" class="row">
+        <div class="col-sm-12 col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">My Pincod Wallet</h3>
             </div>
             <div class="panel-body">
-              <h4>Balance</h4>
-              <span id="TTBalance"></span> Pincod<br/><br/>
+              <h4>Address</h4>
+              <span id="ownAddress"></span><br/>
+              <span id="ownPrivateKey"></span><br/><br/>
               
-              <input type="text" class="form-control" id="TTTransferAddress" placeholder="Address" /><br/>
-              <!-- <input type="text" class="form-control" id="TTTransferAmount" placeholder="Amount" /> -->
-              <button class="btn btn-primary" id="transferButton" type="button">Reveal</button>
+              
+              <button class="btn btn-primary" id="getAddress" type="button">Get address</button>
             </div>
           </div>
         </div>
       </div>
+
+      <div id="shopRow" class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Check shop balance (Admin only)</h3>
+            </div>
+            <div class="panel-body">
+              <h4>Balance: <span id="PincodBalance"></span> PINCOD</h4>
+              
+              <span>Test account: 0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E</span><br /><br />
+              <input type="text" class="form-control" id="TTTransferAddress" placeholder="Address" value="0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E"/><br/>
+              <!-- <input type="text" class="form-control" id="TTTransferAmount" placeholder="Amount" /> -->
+              <button class="btn btn-primary" id="reveal" type="button">Reveal</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+      <div id="productsRow" class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Products</h3>
+            </div>
+            <div class="panel-body">
+              <h4>Insert your product</h4>
+              <br/>
+              <!--<input type="text" class="form-control" id="WannabeOwnerAddress" placeholder="Your own address" required /><br/>-->
+              <input type="text" class="form-control" id="barcode" placeholder="Barcode" required /><br/>
+              <input type="text" class="form-control" id="title" placeholder="Title" required /><br/>
+              <input type="text" class="form-control" id="description" placeholder="Description" required /><br/>
+              <input type="text" class="form-control" id="brand" placeholder="Brand" required /><br/>
+              <input type="text" class="form-control" id="category" placeholder="Category" required /><br/>
+
+              <button class="btn btn-primary" id="transferButton" type="button">Insert product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/web3.min.js"></script>
-    <script src="js/truffle-contract.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

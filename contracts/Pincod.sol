@@ -26,7 +26,7 @@ contract Pincod is ERC721, Ownable {
     
 
     function mint(string memory title, string memory description, string memory brand, string memory category, string memory barcode, string memory tokenURI) public returns (uint256) {
-        
+
         bytes memory tempEmptyStringTest = bytes(title);
         require(tempEmptyStringTest.length != 0, "Title can't be empty");
         tempEmptyStringTest = bytes(description);
@@ -42,8 +42,6 @@ contract Pincod is ERC721, Ownable {
         for (uint i = 0; i < products.length; i++) {
             require(keccak256(bytes(products[i].barcode)) != keccak256(bytes(barcode)), "Product already exists.");
         }
-        
-        
         
         Product memory product = Product(msg.sender, title, description, brand, category, barcode);
         products.push(product);
