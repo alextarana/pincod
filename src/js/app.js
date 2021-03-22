@@ -27,6 +27,10 @@ App = {
       console.log("Latest Ethereum Block is ",result);
     });
 
+    web3.eth.getAccounts().then((result) => {
+      console.log("Accounts:",result);
+    });
+
     return App.initContract();
   },
 
@@ -43,6 +47,7 @@ App = {
 
       // Use our contract to retieve and mark the adopted pets.
       App.totalSupply();
+      App.owner();
     });
 
     return App.bindEvents();
@@ -51,6 +56,7 @@ App = {
   bindEvents: function() {
     $(document).on('click', '#reveal', function(){App.getBalances()});
     $(document).on('click', '#getAddress', function(){App.getAddress()});
+    $(document).on('click', '#insertButton', function(){App.insertProduct()});
   },
 
   getBalances: function() {
@@ -65,19 +71,62 @@ App = {
     
   },
 
-  getAddress: function() {
-    var address = web3.eth.accounts.create();
+  getAddress:  function() {
+    console.log("caa");
 
-    $('#ownAddress').text(address['address']);
-    $('#ownPrivateKey').text(address['privateKey']);
+    web3.eth.personal.newAccount("hvjhvjv").then(function(address){
+      web3.eth.personal.unlockAccount(address,"hvjhvjv",15000);
+      $('#ownAddress').text(address);
+      //$('#ownPrivateKey').text(address['privateKey']);
+    });
+   
+
+    
   },
 
   totalSupply: function() {
-    //console.log('Getting totalSupply...');
-
     App.contracts.Pincod.methods.totalSupply().call().then(function(result) {
       console.log("Total supply on network:", result);
       $("#total-supply").text(result + " PINCOD");
+    }).catch(function(err) {
+      console.log(err.message);
+    });
+  },
+
+  insertProduct: function() {
+    var barcode = $("#barcode").val();
+    var title = $("#title").val();
+    var description = $("#description").val();
+    var brand = $("#brand").val();
+    var category = $("#category").val();
+    var fromAddress = $("#ownAddress").text();
+
+    fromAddress = "0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E";
+
+    //console.log(fromAddress);
+    //web3.eth.defaultAccount = fromAddress;
+    //console.log(web3.eth.defaultAccount);
+
+    App.contracts.Pincod.methods.mint(title, description, brand, category, barcode, "").send({from: fromAddress, gas:3000000}).then(function(result) {
+      console.log("Product insert transaction:", result);
+      $("#message").text("Success!");
+      $("#message").css('color', 'green');
+
+      $("#product-code").text( "Product code: "+result.transactionHash);
+
+      App.totalSupply();
+    }).catch(function(err) {
+      console.log(err.message);
+      $("#message").text(err.message);
+      $("#message").css('color', 'red');
+    });
+  },
+
+  owner: function() {
+    App.contracts.Pincod.methods.owner().call({gas:3000000}).then(function(result) {
+      console.log("Owner:", result);
+      $("#admin").text(result);
+      App.totalSupply();
     }).catch(function(err) {
       console.log(err.message);
     });

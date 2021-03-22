@@ -27,6 +27,24 @@
         </div>
       </div>
 
+      <div id="mainpurposeRow" class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Main purpose</h3>
+            </div>
+            <div class="panel-body">
+              This network provides information about products and allows users to insert their own products. <br /><br />
+                <ul>
+                  <li>The <strong>barcode</strong> is a <strong>"primary key"</strong> so it must be unique. (You cannot insert two product with the same barcodes);</li>
+                  <li>Once a product is inserted, the network itself will verify the whole informations shared with it. (A product initially always have the owner of the network as its owner);</li>
+                    <li>Once verified, a product will automatically be transferred to the correct owner. </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="totalSupplyRow" class="row">
         <div class="col-sm-12 col-md-12">
           <div class="panel panel-default">
@@ -62,13 +80,14 @@
         <div class="col-sm-12 col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Check shop balance (Admin only)</h3>
+              <h3 class="panel-title">Check shop balance (Admin only in the future)</h3>
             </div>
             <div class="panel-body">
               <h4>Balance: <span id="PincodBalance"></span> PINCOD</h4>
-              
+
+              Owner of the network: <span id="admin"></span><br />
               <span>Test account: 0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E</span><br /><br />
-              <input type="text" class="form-control" id="TTTransferAddress" placeholder="Address" value="0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E"/><br/>
+              <input type="text" class="form-control" id="TTTransferAddress" placeholder="Address" /><br/>
               <!-- <input type="text" class="form-control" id="TTTransferAmount" placeholder="Amount" /> -->
               <button class="btn btn-primary" id="reveal" type="button">Reveal</button>
             </div>
@@ -86,6 +105,7 @@
             <div class="panel-body">
               <h4>Insert your product</h4>
               <br/>
+              
               <!--<input type="text" class="form-control" id="WannabeOwnerAddress" placeholder="Your own address" required /><br/>-->
               <input type="text" class="form-control" id="barcode" placeholder="Barcode" required /><br/>
               <input type="text" class="form-control" id="title" placeholder="Title" required /><br/>
@@ -93,7 +113,9 @@
               <input type="text" class="form-control" id="brand" placeholder="Brand" required /><br/>
               <input type="text" class="form-control" id="category" placeholder="Category" required /><br/>
 
-              <button class="btn btn-primary" id="transferButton" type="button">Insert product</button>
+              <button class="btn btn-primary" id="insertButton" type="button">Insert product</button>
+              <span id="message"></span><br />
+              <span id="product-code"></span>
             </div>
           </div>
         </div>
