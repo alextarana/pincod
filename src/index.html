@@ -69,12 +69,35 @@
               <span id="ownAddress"></span><br/>
               <span id="ownPrivateKey"></span><br/><br/>
               
-              
+              <input type="text" class="form-control" id="passphrase" placeholder="Password" required/><br/>
               <button class="btn btn-primary" id="getAddress" type="button">Get address</button>
             </div>
           </div>
         </div>
       </div>
+
+      <div id="getProdRow" class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Get product</h3>
+            </div>
+            <div class="panel-body">
+              <h4>Product</h4>
+              Barcode: <span id="product-barcode"></span><br/>
+              <hr />
+              Title: <span id="product-title"></span><br/>
+              Description: <span id="product-description"></span><br/>
+              Brand: <span id="product-brand"></span><br/>
+              Category: <span id="product-category"></span><br/><br/>
+              
+              <input type="text" class="form-control" id="barcode-check" placeholder="Barcode" required/><br/>
+              <button class="btn btn-primary" id="getProduct" type="button">Get product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div id="shopRow" class="row">
         <div class="col-sm-12 col-md-12">

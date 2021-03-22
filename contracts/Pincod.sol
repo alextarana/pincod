@@ -55,10 +55,37 @@ contract Pincod is ERC721, Ownable {
 
         return tokenID;
     }
+
+
     
-    function getProductFromIndex(uint index) public returns(string memory name, string memory description,  string memory brand,  string memory category) {
-        usages[index] = usages[index] + 1;
-        return (products[index].title, products[index].description, products[index].brand, products[index].category);
+    function getProductFromBarcode(string memory barcode) public view returns(string memory name, string memory description,  string memory brand,  string memory category) {
+        
+        for (uint i = 0; i < products.length; i++) {
+            if(keccak256(bytes(products[i].barcode)) == keccak256(bytes(barcode))){
+                return (products[i].title, products[i].description, products[i].brand, products[i].category);
+            }
+        }
+        
+        revert("No product found with given barcode");
+    }
+
+    function setUsage(string memory barcode) public payable {
+        for (uint i = 0; i < products.length; i++) {
+            if(keccak256(bytes(products[i].barcode)) == keccak256(bytes(barcode))){
+                usages[i] = usages[i] + 1;
+                return;
+            }
+        }
+        revert("No product to set found with given barcode.");
+    }
+
+    function getUsage(string memory barcode) public view returns(uint) {
+        for (uint i = 0; i < products.length; i++) {
+            if(keccak256(bytes(products[i].barcode)) == keccak256(bytes(barcode))){
+                return usages[i];
+            }
+        }
+        revert("No product to set found with given barcode.");
     }
     
     function getWannabeOwnerOfIndex(uint index) public onlyOwner view returns(address) {

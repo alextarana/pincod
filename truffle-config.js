@@ -77,6 +77,12 @@ module.exports = {
         "https://sandbox.truffleteams.com/4825805b-e2ee-4604-a014-5727024f68d6",
       network_id: "*",
     },
+    nodeRi: {
+      url:
+        "https://rinkeby.infura.io/v3/e2872f8eaa75463da565837ae599bda4",
+      from: "0x62cbdadD90366A94dCdf3257b121d613262F4bEE",
+      network_id: "*",
+    },
   },
 
   // Set default mocha options here, use special reporters etc.

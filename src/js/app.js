@@ -8,7 +8,7 @@ App = {
     $('#TTBalance').text("0");
     $('#PincodBalance').text("0");
     $('#ownAddress').text("Click on \"Get address\" button to get your own address.");
-
+    
     return App.initWeb3();
   },
 
@@ -57,6 +57,7 @@ App = {
     $(document).on('click', '#reveal', function(){App.getBalances()});
     $(document).on('click', '#getAddress', function(){App.getAddress()});
     $(document).on('click', '#insertButton', function(){App.insertProduct()});
+    $(document).on('click', '#getProduct', function(){App.getProduct()});
   },
 
   getBalances: function() {
@@ -74,14 +75,14 @@ App = {
   getAddress:  function() {
     console.log("caa");
 
-    web3.eth.personal.newAccount("hvjhvjv").then(function(address){
-      web3.eth.personal.unlockAccount(address,"hvjhvjv",15000);
+    var passphrase = $("#passphrase").val();
+
+    web3.eth.personal.newAccount(passphrase).then(function(address){
+      web3.eth.personal.unlockAccount(address,passphrase,15000);
       $('#ownAddress').text(address);
       //$('#ownPrivateKey').text(address['privateKey']);
     });
    
-
-    
   },
 
   totalSupply: function() {
@@ -108,7 +109,7 @@ App = {
     //console.log(web3.eth.defaultAccount);
 
     App.contracts.Pincod.methods.mint(title, description, brand, category, barcode, "").send({from: fromAddress, gas:3000000}).then(function(result) {
-      console.log("Product insert transaction:", result);
+      //console.log("Product insert transaction:", result);
       $("#message").text("Success!");
       $("#message").css('color', 'green');
 
@@ -127,6 +128,28 @@ App = {
       console.log("Owner:", result);
       $("#admin").text(result);
       App.totalSupply();
+    }).catch(function(err) {
+      console.log(err.message);
+    });
+  },
+
+  getProduct: function() {
+    var barcode = $("#barcode-check").val();
+    fromAddress = "0x71b3Bcb590DfBfbbEE8560e1F7b6f0F92372b50E";
+
+    console.log(barcode);
+
+    App.contracts.Pincod.methods.setUsage(barcode).call({from: fromAddress, gas:3000000}).then(function(result) {
+      App.contracts.Pincod.methods.getProductFromBarcode(barcode).call({from: fromAddress, gas:3000000}).then(function(result) {
+        //console.log("Product:", result);
+        $("#product-title").text(result["name"]);
+        $("#product-description").text(result["description"]);
+        $("#product-brand").text(result["brand"]);
+        $("#product-category").text(result["category"]);
+        $("#product-barcode").text(barcode);
+      }).catch(function(err) {
+        console.log(err.message);
+      });
     }).catch(function(err) {
       console.log(err.message);
     });
